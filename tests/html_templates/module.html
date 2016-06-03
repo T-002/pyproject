@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+
+{% block title %}{{ module_name }}{% endblock %}
+
+{% block header %}
+<a href="index.html">Back to Summary</a>
+<h1>pylint output for {{ module_name }}</h1>
+{% endblock %}
+
+{% block content %}
+{% for submodule in messages if not messages[submodule] == [] %}
+    <div class="message">
+        <div class="name">{{ submodule }}</div>
+
+        {% set lastObject = "____TEMPLATE_DUMMY____" %}
+        {% for message in messages[submodule] %}
+            {% if lastObject != message["object"] %}
+                {% if lastObject != "____TEMPLATE_DUMMY____" %}</div>{% endif %}
+
+                <div class="message-object">
+                <div class="message-object-name">{{ message["object"] }}</div>
+                <div class="message-location">Location</div><div class="message-category">Category</div><div>Message</div>
+
+                {% set lastObject = message["object"] %}
+            {% endif %}
+
+            <div class="state-{{ message['category_name'] }}">
+                <div class="message-location">{{ message["line"] }}:{{ message["column"] }}</div>
+                <div class="message-category">{{message["category"] }} ({{ message["message_id"][1:] }})</div>
+                {{ message["message"] }}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+
+{% block title %}Summary{% endblock %}
+
+{% block header %}<h1>pylint Summary</h1>{% endblock %}
+
+{% block content %}
+{% for module in reports %}
+<div class="module state-{{ reports[module]['state'] }}">
+  <a href="{{ module }}.html" class="fill-div">
+  <div class="name">{{ module }}</div>
+  <div class="message">
+    {% for message in ["C", "R", "W", "E", "F"] %}{% if reports[module][message] > 0 %}{{ categories[message] }} : {{ reports[module][message] }}<br />{% endif %}
+    {% endfor %}
+  </div>
+  </a>
+</div>
+{% endfor %}
+{% endblock %}
