@@ -211,6 +211,8 @@ class PyLintTest(unittest.TestCase):
         rg = ReportGenerator(module_name, report)
         rg.persist_report("results/pylint")
 
+        return retcode
+
     def test_project(self):
         """Checking the project with pylint."""
         retcode = self.check_with_pylint_and_generate_report("project")
