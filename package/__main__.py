@@ -21,15 +21,19 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""A dummy docstring.
+
+You should give some information about your project here.
+"""
 
 if __name__=="__main__":
 
-    from dummy import Dummy
+    import dummy
 
-    d = Dummy()
+    dummy_instance = dummy.Dummy()
 
-    r1 = d.add_some_values(3, 5)
-    r2 = d.add_some_values("3", "5")
+    first_result  = dummy_instance.add_some_values(3, 5)
+    second_result = dummy_instance.add_some_values("3", "5")
 
-    print(r1)
-    print(r2)
+    print(first_result)
+    print(second_result)

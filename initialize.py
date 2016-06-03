@@ -46,5 +46,10 @@ def update_noseconfig(project):
     new      = open("nose.cfg", "w").write(
         original.replace("cover-package=package,tests", "cover-package=%s,tests" % project))
 
+def update_pylintrc(project):
+    original = open("nose.cfg", "r").read()
+    new      = open("nose.cfg", "w").write(
+        original.replace("init-hook=sys.path.append(package)", "init-hook=sys.path.append(%s)" % project))
+
 if __name__=="__main__":
     project = input("Please give your project name: ")

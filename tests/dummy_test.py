@@ -21,7 +21,7 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+"""Tests the dummy submodule."""
 import unittest
 
 from package.dummy import Dummy
@@ -33,10 +33,17 @@ class DummyTest(unittest.TestCase):
         """Testing integer addition."""
         res = Dummy().add_some_values(3, 5)
 
-        self.assertEquals(8, res)
+        self.assertTrue(res == 8)
 
     def test_add_strings(self):
         """Testing string concatenation."""
         res = Dummy().add_some_values("3", "5")
 
-        self.assertEquals("35", res)
+        self.assertTrue(res == "35")
+
+    def test_concatenation_strings(self):
+        """Tests the concatenation of strings."""
+        res_1 = Dummy().concatenate_some_values(1, 2)
+        res_2 = Dummy().concatenate_some_values("1", "2")
+
+        self.assertTrue(res_1 == res_2)

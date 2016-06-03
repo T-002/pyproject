@@ -21,6 +21,7 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""Runs pylint on your package and generates HTML reports."""
 
 import subprocess
 import unittest
@@ -83,8 +84,7 @@ class ReportGenerator(object):
             ReportGenerator.reports[self.module_name][category] = 0
 
             for submodule in self.parsed_report:
-                count = len(list(
-                    filter(lambda i: i["category"] == category, self.parsed_report[submodule])))
+                count = len([i for i in self.parsed_report[submodule] if i["category"] == category])
 
                 ReportGenerator.reports[self.module_name][category] += count
 
@@ -139,8 +139,7 @@ class ReportGenerator(object):
 
         for module in self.pylint_report.split("************* Module "):
             module = module.split("\n")
-            name = module[0].strip()
-            result[module[0]] = self.generate_report_for_submodule(module[1:])
+            result[module[0].strip()] = self.generate_report_for_submodule(module[1:])
 
         return result
 
@@ -171,7 +170,7 @@ class PyLintTest(unittest.TestCase):
     """Checks your code with pylint."""
 
     @classmethod
-    def tearDownClass(self):
+    def tearDownClass(cls):
         """Tears down the PyLintTest class.
 
         This method will start the overview report generation.
@@ -198,7 +197,7 @@ class PyLintTest(unittest.TestCase):
 
         return out.decode("UTF-8"), retcode
 
-    def check_with_pylint_and_generate_report(self, module_name):
+    def run_pylint_and_generate_report(self, module_name):
         """Checks the given module with pylint and generated the report.
 
         :param str module_name: Name of the module to be checked.
@@ -208,17 +207,17 @@ class PyLintTest(unittest.TestCase):
         report, retcode = self.get_pylint_output_and_status(module_name)
 
         # Generate the HTML Report for the module
-        rg = ReportGenerator(module_name, report)
-        rg.persist_report("results/pylint")
+        generator = ReportGenerator(module_name, report)
+        generator.persist_report("results/pylint")
 
         return retcode
 
-    def test_project(self):
-        """Checking the project with pylint."""
-        retcode = self.check_with_pylint_and_generate_report("project")
-        self.assertEquals(retcode, 0)
+    def test_package(self):
+        """Checking the package with pylint."""
+        retcode = self.run_pylint_and_generate_report("package")
+        self.assertTrue(retcode == 0)
 
     def test_tests(self):
         """Checking your tests with pylint."""
-        retcode = self.check_with_pylint_and_generate_report("tests")
-        self.assertEquals(retcode, 0)
+        retcode = self.run_pylint_and_generate_report("tests")
+        self.assertTrue(retcode == 0)

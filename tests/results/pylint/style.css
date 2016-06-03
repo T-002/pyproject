@@ -52,7 +52,7 @@ a.fill-div {
 }
 
 .message-category {
-    width: 80px;
+    width: 200px;
     float: left;
 }
 
@@ -61,7 +61,7 @@ a.fill-div {
 }
 
 .state-ok {
-    background-color: #fafafa;
+    background-color: #bbffbb;
 }
 
 .state-convention {

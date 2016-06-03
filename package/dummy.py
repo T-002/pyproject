@@ -21,14 +21,42 @@
 # LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""A dummy module, used for testing and demonstration.
+
+This file will be removed during initialization.
+"""
 
 class Dummy(object):
     """A dummy class for the project."""
 
-    def add_some_values(self, a, b):
+    def __init__(self):
+        """Initialized the Dummy."""
+        super(Dummy, self).__init__()
+
+        self.call_count = 0
+
+    def add_some_values(self, val_a, val_b):
         """Adds the values a and b.
+
+        :param val_a: First value.
+        :param val_b: Second value.
 
         :return: Returns the addition of a and b.
         """
-        result = a + b
+        self.call_count += 1
+
+        result = val_a + val_b
         return result
+
+    def concatenate_some_values(self, val_a,  val_b):
+        """Concatenated the values and returns the result.
+
+        :param val_a: First value.
+        :param val_b: Second value.
+
+        :return: Returns the concatenation of val_a and val_b.
+        :rtype:  str
+        """
+        self.call_count += 1
+
+        return "%s%s" % (val_a, val_b)
