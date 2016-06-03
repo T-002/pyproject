@@ -182,9 +182,8 @@ class PyLintTest(unittest.TestCase):
 
         :param str relative_path: Path to the module/package to be checked.
 
-        :return: Returns a tuple containing the output and return code of pylint.
-                 Return code 0 means, there were no linter issues.
-        :rtype:  tuple(str, int)
+        :return: Returns the output of pylint.
+        :rtype:  str
         """
         command = "pylint --jobs=%s %s" % (multiprocessing.cpu_count(), relative_path)
         proc = subprocess.Popen(command.split(" "),
@@ -193,9 +192,8 @@ class PyLintTest(unittest.TestCase):
                                 stderr=subprocess.PIPE)
 
         out     = proc.communicate()[0]
-        retcode = proc.returncode
 
-        return out.decode("UTF-8"), retcode
+        return out.decode("UTF-8")
 
     def run_pylint_and_generate_report(self, module_name):
         """Checks the given module with pylint and generated the report.
@@ -204,20 +202,20 @@ class PyLintTest(unittest.TestCase):
 
         :return: Returns the return code of pylint.
         """
-        report, retcode = self.get_pylint_output_and_status(module_name)
+        report = self.get_pylint_output_and_status(module_name)
 
         # Generate the HTML Report for the module
         generator = ReportGenerator(module_name, report)
         generator.persist_report("results/pylint")
 
-        return retcode
+        return len(report)
 
     def test_package(self):
         """Checking the package with pylint."""
-        retcode = self.run_pylint_and_generate_report("package")
-        self.assertTrue(retcode == 0)
+        errors = self.run_pylint_and_generate_report("package")
+        self.assertTrue(errors == 0)
 
     def test_tests(self):
         """Checking your tests with pylint."""
-        retcode = self.run_pylint_and_generate_report("tests")
-        self.assertTrue(retcode == 0)
+        errors = self.run_pylint_and_generate_report("tests")
+        self.assertTrue(errors == 0)
