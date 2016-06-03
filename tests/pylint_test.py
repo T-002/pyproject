@@ -110,7 +110,7 @@ class ReportGenerator(object):
         """
         result = []
 
-        for entry in module_output:
+        for entry in module_output:                                            # pragma: no cover
             entry = entry.split(":")
 
             if len(entry) < 8:
@@ -127,7 +127,7 @@ class ReportGenerator(object):
                 "symbol":        entry[7]
             })
 
-        result.sort(key=lambda i: i["line"])
+        result.sort(key=lambda i: i["line"])                                   # pragma: no cover
 
         return result
 
