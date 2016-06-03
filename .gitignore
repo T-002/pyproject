@@ -60,3 +60,7 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# Development tools
+sftp-config.json
+.coverage
