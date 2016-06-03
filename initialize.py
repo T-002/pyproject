@@ -50,8 +50,13 @@ def update_pylintrc(project):
     original = open("nose.cfg", "r").read()
     new      = open("nose.cfg", "w").write(
         original.replace(
-            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./package");'"""
-            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./%s");'""" % project
+            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./package");'""",
+            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./%s");'""" % project))
+
+def update_main(project):
+    original = open("%s/nose.cfg" % project, "r").read()
+    new      = open("nose.cfg", "w").write(
+        original.split("####SOME STRING USED TO REMOVE ALL OTHER STUFF")[0])
 
 def main():
     project = input("Please give your project name: ")
