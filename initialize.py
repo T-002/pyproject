@@ -39,7 +39,7 @@ def update_test_config(project):
 def update_linter_test(project):
     original = open("tests/pylint_test.py", "r").read()
     new      = open("tests/pylint_test.py", "w").write(
-        original.replace("project", project))
+        original.replace('PROJECT_NAME="package"', 'PROJECT_NAME="%s"' % project))
 
 def update_noseconfig(project):
     original = open("nose.cfg", "r").read()

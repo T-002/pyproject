@@ -30,6 +30,8 @@ import os
 
 import jinja2
 
+PROJECT_NAME="package"
+
 class ReportGenerator(object):
     """Takes pylint output and creates a readable HTML document."""
 
@@ -212,7 +214,7 @@ class PyLintTest(unittest.TestCase):
 
     def test_package(self):
         """Checking the package with pylint."""
-        errors = self.run_pylint_and_generate_report("package")
+        errors = self.run_pylint_and_generate_report(PROJECT_NAME)
         self.assertTrue(errors == 0)
 
     def test_tests(self):
