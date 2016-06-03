@@ -24,19 +24,19 @@
 
 import os
 
+def delete_dummy_files():
+    os.remove("package/dummy.py")
+    os.remove("tests/dummy_test.py")
+
 def rename_project(project):
     os.rename("package", project)
-
-def delete_dummy_files(project):
-    os.remove("%s/dummy.py"          % project)
-    os.remove("tests/dummy:_test.py" % project)
 
 def update_test_config(project):
     original = open("tests/__init__.py", "r").read()
     new      = open("tests/__init__.py", "w").write(
         original.replace("package", project))
 
-def update_linter_test(project)
+def update_linter_test(project):
     original = open("tests/pylint_test.py", "r").read()
     new      = open("tests/pylint_test.py", "w").write(
         original.replace("project", project))
@@ -49,7 +49,20 @@ def update_noseconfig(project):
 def update_pylintrc(project):
     original = open("nose.cfg", "r").read()
     new      = open("nose.cfg", "w").write(
-        original.replace("init-hook=sys.path.append(package)", "init-hook=sys.path.append(%s)" % project))
+        original.replace(
+            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./package");'"""
+            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./%s");'""" % project
+
+def main():
+    project = input("Please give your project name: ")
+
+    delete_dummy_files()
+    rename_project(project)
+    update_test_config(project)
+    update_linter_test(project)
+    update_noseconfig(project)
+    update_pylintrc(project)
+
 
 if __name__=="__main__":
-    project = input("Please give your project name: ")
+    main()
