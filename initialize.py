@@ -48,10 +48,10 @@ def update_noseconfig(project):
 
 def update_pylintrc(project):
     original = open("nose.cfg", "r").read()
-    open("nose.cfg", "w").write(
-        original.replace(
-            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./package");'""",
-            """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./%s");'""" % project))
+    open("nose.cfg", "w").write(original.replace(
+        """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./package");'""",
+        """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./%s");'"""
+        % project))
 
 def update_main(project):
     original = open("%s/nose.cfg" % project, "r").read()
