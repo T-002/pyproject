@@ -30,7 +30,7 @@ if __name__=="__main__":
     print("""This code is executed, whenever the script is called directly.""")
     ####SOME STRING USED TO REMOVE ALL OTHER STUFF
 
-    import package.dummy
+    import package.dummy as dummy
 
     dummy_instance = dummy.Dummy()
 
