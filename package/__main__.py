@@ -27,10 +27,10 @@ You should give some information about your project here.
 """
 
 if __name__=="__main__":
-    """This code is executed, whenever the script is called directly."""
+    print("""This code is executed, whenever the script is called directly.""")
     ####SOME STRING USED TO REMOVE ALL OTHER STUFF
 
-    import dummy
+    import package.dummy
 
     dummy_instance = dummy.Dummy()
 
