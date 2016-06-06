@@ -32,10 +32,10 @@ if __name__=="__main__":
 
     import package.dummy as dummy
 
-    dummy_instance = dummy.Dummy()
+    DUMMY_INSTANCE = dummy.Dummy()
 
-    first_result  = dummy_instance.add_some_values(3, 5)
-    second_result = dummy_instance.add_some_values("3", "5")
+    FIRST_RESULT  = dummy_instance.add_some_values(3, 5)
+    SECOND_RESULT = dummy_instance.add_some_values("3", "5")
 
-    print(first_result)
-    print(second_result)
+    print(FIRST_RESULT)
+    print(SECOND_RESULT)
