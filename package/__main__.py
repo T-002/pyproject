@@ -27,15 +27,15 @@ You should give some information about your project here.
 """
 
 if __name__=="__main__":
-    pass
+    print("""This code is executed, whenever the script is called directly.""")
     ####SOME STRING USED TO REMOVE ALL OTHER STUFF
 
-    import dummy
+    import package.dummy as dummy
 
-    dummy_instance = dummy.Dummy()
+    DUMMY_INSTANCE = dummy.Dummy()
 
-    first_result  = dummy_instance.add_some_values(3, 5)
-    second_result = dummy_instance.add_some_values("3", "5")
+    FIRST_RESULT  = DUMMY_INSTANCE.add_some_values(3, 5)
+    SECOND_RESULT = DUMMY_INSTANCE.add_some_values("3", "5")
 
-    print(first_result)
-    print(second_result)
+    print(FIRST_RESULT)
+    print(SECOND_RESULT)
