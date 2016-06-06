@@ -34,8 +34,8 @@ if __name__=="__main__":
 
     DUMMY_INSTANCE = dummy.Dummy()
 
-    FIRST_RESULT  = dummy_instance.add_some_values(3, 5)
-    SECOND_RESULT = dummy_instance.add_some_values("3", "5")
+    FIRST_RESULT  = DUMMY_INSTANCE.add_some_values(3, 5)
+    SECOND_RESULT = DUMMY_INSTANCE.add_some_values("3", "5")
 
     print(FIRST_RESULT)
     print(SECOND_RESULT)
