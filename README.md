@@ -1,8 +1,7 @@
 # pyproject
-  * landscape.io: ![Landscape](https://landscape.io/github/T-002/pyproject/develop/landscape.svg?style=flat)
-  * travis:       ![Travis](https://travis-ci.org/T-002/pyproject.svg?branch=develop)
+Template for python projects.
 
-Template for python projects
+You can use this template if you like to have an already project with basic testing functionality.
 
 ## Things you need to do, prior to using this template
 
@@ -16,5 +15,5 @@ Template for python projects
   * jinja2
 
 ### External services already configured
-  * landscape.io - static code checker
-  * travis.ci - continues integration service
+  * ![Landscape](https://landscape.io/github/T-002/pyproject/master/landscape.svg?style=flat) - landscape.io - static code checker
+  * ![Travis](https://travis-ci.org/T-002/pyproject.svg?branch=master) - travis.ci - continues integration service - 
