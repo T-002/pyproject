@@ -1,5 +1,6 @@
 # pyproject
-
+landscape.io - ![Landscape](https://landscape.io/github/T-002/pyproject/master/landscape.svg?style=flat)
+travis       - ![Travis](https://travis-ci.org/T-002/pyproject.svg?branch=develop)
 
 Template for python projects
 
