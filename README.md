@@ -14,3 +14,7 @@ Template for python projects
   * nosetests
   * coverage
   * jinja2
+
+### External services already configured
+  * landscape.io - static code checker
+  * travis.ci - continues integration service
