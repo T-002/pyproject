@@ -22,31 +22,39 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+"""This module can be used to adapt the template to your project needs."""
+
 import os
 
 def delete_dummy_files():
+    """Delete dummy test files."""
     os.remove("package/dummy.py")
     os.remove("tests/dummy_test.py")
 
 def rename_project(project):
+    """Rename the package directory."""
     os.rename("package", project)
 
 def update_test_config(project):
+    """Update the test configuration."""
     original = open("tests/__init__.py", "r").read()
     open("tests/__init__.py", "w").write(
         original.replace("package", project))
 
 def update_linter_test(project):
+    """Update the linter test."""
     original = open("tests/pylint_test.py", "r").read()
     open("tests/pylint_test.py", "w").write(
         original.replace('PROJECT_NAME="package"', 'PROJECT_NAME="%s"' % project))
 
 def update_noseconfig(project):
+    """Update the test configuration to match with the projects package name."""
     original = open("nose.cfg", "r").read()
     open("nose.cfg", "w").write(
         original.replace("cover-package=package,tests", "cover-package=%s,tests" % project))
 
 def update_pylintrc(project):
+    """Update the init-hook for pylint."""
     original = open("nose.cfg", "r").read()
     open("nose.cfg", "w").write(original.replace(
         """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./package");'""",
@@ -54,11 +62,13 @@ def update_pylintrc(project):
         % project))
 
 def update_main(project):
+    """Remove the not required code from __main__.py"""
     original = open("%s/nose.cfg" % project, "r").read()
     open("nose.cfg", "w").write(
         original.split("####SOME STRING USED TO REMOVE ALL OTHER STUFF")[0])
 
 def main():
+    """Run the initializtion and execute all steps to transform the tempalte into a usable project."""
     project = input("Please give your project name: ")
 
     delete_dummy_files()
