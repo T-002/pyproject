@@ -69,7 +69,7 @@ def update_main(project):
 
 def main():
     """Run the initializtion and execute all steps to transform the tempalte into a usable project."""
-    project = input("Please give your project name: ")
+    project = str(input("Please give your project name: "))
 
     delete_dummy_files()
     rename_project(project)

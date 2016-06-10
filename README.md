@@ -15,5 +15,5 @@ You can use this template if you like to have an already project with basic test
   * jinja2
 
 ### External services already configured
-  * ![Landscape](https://landscape.io/github/T-002/pyproject/master/landscape.svg?style=flat) - landscape.io - static code checker
-  * ![Travis](https://travis-ci.org/T-002/pyproject.svg?branch=master) - travis.ci - continues integration service - 
+  * ![Landscape](https://landscape.io/github/T-002/pyproject/develop/landscape.svg?style=flat) - landscape.io - static code checker. Alternative to the integrated pylint_test.py
+  * ![Travis](https://travis-ci.org/T-002/pyproject.svg?branch=develop) - travis.ci - continues integration service
