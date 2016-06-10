@@ -1,4 +1,4 @@
-# pyproject
+# python-project-template
 Template for python projects.
 
 You can use this template if you like to have an already project with basic testing functionality.
