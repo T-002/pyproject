@@ -79,7 +79,7 @@ def update_main(project, is_flask_service):
         current_index = original.find(end_ms) + len(end_ms)
 
         new += original[current_index : original.find(start_creation)]
-        current_index = original.find(end_creation + len(end_creation))
+        current_index = original.find(end_creation) + len(end_creation)
 
         new += original[current_index:]
 
