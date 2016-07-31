@@ -68,8 +68,6 @@ def update_main(project, is_flask_service):
     original = original.replace("package", project)
 
     if not is_flask_service:
-        new = ""
-
         start_ms       = "#### START MICROSERVICE CODE"
         end_ms         = "#### END MICROSERVICE CODE"
         start_creation = "#### START MICROSERVICE INSTANCE CREATION"
@@ -85,7 +83,9 @@ def update_main(project, is_flask_service):
 
         new += original[current_index:]
 
-    open("%s/__main__.py" % project, "w").write(new)
+        original = new
+
+    open("%s/__main__.py" % project, "w").write(original)
 
 def delete_flask_service_files(project):
     os.remove("%s/service.py")
