@@ -63,7 +63,7 @@ def update_pylintrc(project):
 
 def update_main(project, is_flask_service):
     """Remove the not required code from __main__.py"""
-    original = open("%s/__main.py__" % project, "r").read()
+    original = open("%s/__main__.py" % project, "r").read()
 
     original = original.replace("package", project)
 
