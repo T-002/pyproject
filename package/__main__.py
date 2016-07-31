@@ -26,10 +26,30 @@
 You should give some information about your project here.
 """
 
-if __name__=="__main__":
-    print("""This code is executed, whenever the script is called directly.""")
-    ####SOME STRING USED TO REMOVE ALL OTHER STUFF
+#### START MICROSERVICE CODE
+from builder import make_app
 
+def start_development_server(host, port, debug):
+    app = make_app()
+    app.run(host=host, port=port, debug=debug, threaded=True)
+
+def start_production_server(host, port):
+    from tornado.wsgi import WSGIContainer
+    from tornado.httpserver import HTTPServer
+    from tornado.ioloop import IOLoop
+
+    app = make_app()
+
+    http_server = HTTPServer(WSGIContainer(app))
+    http_server.listen(port)
+    IOLoop.instance().start()
+#### END MICROSERVICE CODE
+
+def you_should_remove_this_dummy():
+    """This function can be removed.
+
+    It is only contained for presentation purposes.
+    """
     import package.dummy as dummy
 
     DUMMY_INSTANCE = dummy.Dummy()
@@ -39,3 +59,29 @@ if __name__=="__main__":
 
     print(FIRST_RESULT)
     print(SECOND_RESULT)
+
+if __name__=="__main__":
+    print("""This code is executed, whenever the script is called directly.""")
+
+    you_should_remove_this_dummy()
+
+#### START MICROSERVICE INSTANCE CREATION
+    if len(sys.argv) < 2:
+        print("[Usage] package <PORT>")
+        sys.exit()
+
+    host  = "0.0.0.0"
+    port  = int(sys.argv[1])
+
+    debug = not os.path.dirname(os.path.abspath(__file__)).split(os.sep)[-2].endswith("production")
+
+    if debug:
+        # Flask's integrated server
+        print ("Starting in DEVELOPMENT mode.")
+        start_development_server(host, port, True)
+    else:
+        # Tornado Server
+        print("Starting in PRODUCTION mode.")
+        start_production_server(host, port)
+
+#### END MICROSERVICE INSTANCE CREATION
