@@ -85,7 +85,7 @@ def update_main(project, is_flask_service):
 
         new += original[current_index:]
 
-    open("%s/__main__.py", "w").write(new)
+    open("%s/__main__.py" % project, "w").write(new)
 
 def delete_flask_service_files(project):
     os.remove("%s/service.py")
@@ -99,7 +99,7 @@ def get_user_config():
     """
     project = str(input("Please give your project name: "))
 
-    flask_service = str(input("Should this project contain a Flask service? (y/n)")).lower().strip()
+    flask_service = str(input("Should this project contain a Flask service? (y/n) ")).lower().strip()
     if flask_service:
         flask_service = flask_service[0] == "y"
 
