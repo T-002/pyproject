@@ -85,7 +85,7 @@ def update_main(project, is_flask_service):
 
         new += original[current_index:]
 
-    open("__%s/__main__.py", "w").write(new)
+    open("%s/__main__.py", "w").write(new)
 
 def delete_flask_service_files(project):
     os.remove("%s/service.py")
