@@ -88,8 +88,8 @@ def update_main(project, is_flask_service):
     open("%s/__main__.py" % project, "w").write(original)
 
 def delete_flask_service_files(project):
-    os.remove("%s/service.py")
-    os.remove("%s/builder.py")
+    os.remove("%s/service.py" % project)
+    os.remove("%s/builder.py" % project)
 
 def get_user_config():
     """Reads the project configuration from the user.
