@@ -30,10 +30,12 @@ You should give some information about your project here.
 from builder import make_app
 
 def start_development_server(host, port, debug):
+    """Starts the server in development mode."""
     app = make_app("package")
     app.run(host=host, port=port, debug=debug, threaded=True)
 
 def start_production_server(port):
+    """Starts the server in production mode using Tornado."""
     from tornado.wsgi import WSGIContainer
     from tornado.httpserver import HTTPServer
     from tornado.ioloop import IOLoop
