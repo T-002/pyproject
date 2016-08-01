@@ -23,6 +23,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """This module contains the the main method to build your Flask application."""
 
+import os
+
+from flask import Flask
+
 import service
 
 def make_app(project):
@@ -44,6 +48,6 @@ def make_app(project):
     @app.route("/sitemap")
     def get_sitemap():
         """Returns the sitemap of the application."""
-        return (service.get_sitemap(app))
+        return str(service.get_sitemap(app))
 
     return app

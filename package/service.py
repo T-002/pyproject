@@ -26,6 +26,7 @@
 These endpoints are wrapped as functions for reusability.
 """
 
+import datetime
 import sys
 
 def get_version():

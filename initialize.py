@@ -67,12 +67,12 @@ def update_main(project, is_flask_service):
 
     original = original.replace("package", project)
 
-    if not is_flask_service:
-        start_ms       = "#### START MICROSERVICE CODE"
-        end_ms         = "#### END MICROSERVICE CODE"
-        start_creation = "#### START MICROSERVICE INSTANCE CREATION"
-        end_creation   = "#### END MICROSERVICE INSTANCE CREATION"
+    start_ms       = "#### START MICROSERVICE CODE"
+    end_ms         = "#### END MICROSERVICE CODE"
+    start_creation = "#### START MICROSERVICE INSTANCE CREATION"
+    end_creation   = "#### END MICROSERVICE INSTANCE CREATION"
 
+    if not is_flask_service:
         current_index = 0
 
         new = original[current_index : original.find(start_ms)]
@@ -82,11 +82,14 @@ def update_main(project, is_flask_service):
         current_index = original.find(end_creation) + len(end_creation)
 
         new += original[current_index:]
-
-        new = new.replace(start_ms, "").replace(end_ms, "")
-        new = new.replace(start_creation, "").replace(end_creation, "")
-
         original = new
+    else:
+        original = original.replace(
+            'make_app("package")',
+            'make_app("%s")' % project)
+
+    original = original.replace(start_ms, "").replace(end_ms, "")
+    original = original.replace(start_creation, "").replace(end_creation, "")
 
     open("%s/__main__.py" % project, "w").write(original)
 

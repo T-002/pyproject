@@ -30,7 +30,7 @@ You should give some information about your project here.
 from builder import make_app
 
 def start_development_server(host, port, debug):
-    app = make_app()
+    app = make_app("package")
     app.run(host=host, port=port, debug=debug, threaded=True)
 
 def start_production_server(host, port):
@@ -38,7 +38,7 @@ def start_production_server(host, port):
     from tornado.httpserver import HTTPServer
     from tornado.ioloop import IOLoop
 
-    app = make_app()
+    app = make_app("package")
 
     http_server = HTTPServer(WSGIContainer(app))
     http_server.listen(port)
@@ -48,6 +48,10 @@ def start_production_server(host, port):
 if __name__=="__main__":
     print("""This code is executed, whenever the script is called directly.""")
 #### START MICROSERVICE INSTANCE CREATION
+
+    import sys
+    import os
+
     if len(sys.argv) < 2:
         print("[Usage] package <PORT>")
         sys.exit()
