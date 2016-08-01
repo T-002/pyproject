@@ -118,14 +118,18 @@ def get_user_config():
     """
     project = str(input("Please give your project name: "))
 
-    flask_service = str(input("Should this project contain a Flask service? (y/n) ")).lower().strip()
+    flask_service = str(input(
+        "Should this project contain a Flask service? (y/n) ")).lower().strip()
+
     if flask_service:
         flask_service = flask_service[0] == "y"
 
     return project, flask_service
 
 def main():
-    """Run the initializtion and execute all steps to transform the tempalte into a usable project."""
+    """Run the initializtion and execute all steps to
+    transform the template into a usable project.
+    """
     project, is_flask_service = get_user_config()
 
     delete_dummy_files()
