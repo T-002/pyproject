@@ -59,9 +59,7 @@ if __name__=="__main__":
     HOST  = "0.0.0.0"
     PORT  = int(sys.argv[1])
 
-    DEBUG = not os.path.dirname(os.path.abspath(__file__)).split(os.sep)[-2].endswith("production")
-
-    if debug:
+    if not os.path.dirname(os.path.abspath(__file__)).split(os.sep)[-2].endswith("production"):
         # Flask's integrated server
         print ("Starting in DEVELOPMENT mode.")
         start_development_server(HOST, PORT, True)
