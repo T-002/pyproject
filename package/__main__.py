@@ -26,16 +26,48 @@
 You should give some information about your project here.
 """
 
+#### START MICROSERVICE CODE
+from builder import make_app
+
+def start_development_server(host, port, debug):
+    app = make_app("package")
+    app.run(host=host, port=port, debug=debug, threaded=True)
+
+def start_production_server(host, port):
+    from tornado.wsgi import WSGIContainer
+    from tornado.httpserver import HTTPServer
+    from tornado.ioloop import IOLoop
+
+    app = make_app("package")
+
+    http_server = HTTPServer(WSGIContainer(app))
+    http_server.listen(port)
+    IOLoop.instance().start()
+#### END MICROSERVICE CODE
+
 if __name__=="__main__":
     print("""This code is executed, whenever the script is called directly.""")
-    ####SOME STRING USED TO REMOVE ALL OTHER STUFF
+#### START MICROSERVICE INSTANCE CREATION
 
-    import package.dummy as dummy
+    import sys
+    import os
 
-    DUMMY_INSTANCE = dummy.Dummy()
+    if len(sys.argv) < 2:
+        print("[Usage] package <PORT>")
+        sys.exit()
 
-    FIRST_RESULT  = DUMMY_INSTANCE.add_some_values(3, 5)
-    SECOND_RESULT = DUMMY_INSTANCE.add_some_values("3", "5")
+    host  = "0.0.0.0"
+    port  = int(sys.argv[1])
 
-    print(FIRST_RESULT)
-    print(SECOND_RESULT)
+    debug = not os.path.dirname(os.path.abspath(__file__)).split(os.sep)[-2].endswith("production")
+
+    if debug:
+        # Flask's integrated server
+        print ("Starting in DEVELOPMENT mode.")
+        start_development_server(host, port, True)
+    else:
+        # Tornado Server
+        print("Starting in PRODUCTION mode.")
+        start_production_server(host, port)
+
+#### END MICROSERVICE INSTANCE CREATION

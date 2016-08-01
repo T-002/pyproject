@@ -47,6 +47,16 @@ def update_linter_test(project):
     open("tests/pylint_test.py", "w").write(
         original.replace('PROJECT_NAME="package"', 'PROJECT_NAME="%s"' % project))
 
+def update_service_test(project):
+    original = open("tests/service_test.py", "r").read()
+    open("tests/service_test.py", "w").write(
+        original.replace("from package import", "from %s import" % project))
+
+def update_builder_test(project):
+    original = open("tests/builder_test.py", "r").read()
+    open("tests/builder_test.py", "w").write(
+        original.replace("from package import", "from %s import" % project))
+
 def update_noseconfig(project):
     """Update the test configuration to match with the projects package name."""
     original = open("nose.cfg", "r").read()
@@ -61,15 +71,62 @@ def update_pylintrc(project):
         """init-hook='import sys, os; sys.path.insert[0]("."); sys.path.insert[0]("./%s");'"""
         % project))
 
-def update_main(project):
+def update_main(project, is_flask_service):
     """Remove the not required code from __main__.py"""
-    original = open("%s/nose.cfg" % project, "r").read()
-    open("nose.cfg", "w").write(
-        original.split("####SOME STRING USED TO REMOVE ALL OTHER STUFF")[0])
+    original = open("%s/__main__.py" % project, "r").read()
+
+    original = original.replace("package", project)
+
+    start_ms       = "#### START MICROSERVICE CODE"
+    end_ms         = "#### END MICROSERVICE CODE"
+    start_creation = "#### START MICROSERVICE INSTANCE CREATION"
+    end_creation   = "#### END MICROSERVICE INSTANCE CREATION"
+
+    if not is_flask_service:
+        current_index = 0
+
+        new = original[current_index : original.find(start_ms)]
+        current_index = original.find(end_ms) + len(end_ms)
+
+        new += original[current_index : original.find(start_creation)]
+        current_index = original.find(end_creation) + len(end_creation)
+
+        new += original[current_index:]
+        original = new
+    else:
+        original = original.replace(
+            'make_app("package")',
+            'make_app("%s")' % project)
+
+    original = original.replace(start_ms, "").replace(end_ms, "")
+    original = original.replace(start_creation, "").replace(end_creation, "")
+
+    open("%s/__main__.py" % project, "w").write(original)
+
+def delete_flask_service_files(project):
+    os.remove("%s/service.py" % project)
+    os.remove("tests/service_test.py")
+
+    os.remove("%s/builder.py" % project)
+    os.remove("tests/builder_test.py")
+
+def get_user_config():
+    """Reads the project configuration from the user.
+
+    :return: Returns a tuple, containing (project_name, is_flask_service)
+    :rtype:  tuple
+    """
+    project = str(input("Please give your project name: "))
+
+    flask_service = str(input("Should this project contain a Flask service? (y/n) ")).lower().strip()
+    if flask_service:
+        flask_service = flask_service[0] == "y"
+
+    return project, flask_service
 
 def main():
     """Run the initializtion and execute all steps to transform the tempalte into a usable project."""
-    project = str(input("Please give your project name: "))
+    project, is_flask_service = get_user_config()
 
     delete_dummy_files()
     rename_project(project)
@@ -77,7 +134,12 @@ def main():
     update_linter_test(project)
     update_noseconfig(project)
     update_pylintrc(project)
+    update_builder_test(project)
+    update_service_test(project)
+    update_main(project, is_flask_service)
 
+    if not is_flask_service:
+        delete_flask_service_files(project)
 
 if __name__=="__main__":
     main()
