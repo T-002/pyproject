@@ -45,26 +45,8 @@ def start_production_server(host, port):
     IOLoop.instance().start()
 #### END MICROSERVICE CODE
 
-def you_should_remove_this_dummy():
-    """This function can be removed.
-
-    It is only contained for presentation purposes.
-    """
-    import package.dummy as dummy
-
-    DUMMY_INSTANCE = dummy.Dummy()
-
-    FIRST_RESULT  = DUMMY_INSTANCE.add_some_values(3, 5)
-    SECOND_RESULT = DUMMY_INSTANCE.add_some_values("3", "5")
-
-    print(FIRST_RESULT)
-    print(SECOND_RESULT)
-
 if __name__=="__main__":
     print("""This code is executed, whenever the script is called directly.""")
-
-    you_should_remove_this_dummy()
-
 #### START MICROSERVICE INSTANCE CREATION
     if len(sys.argv) < 2:
         print("[Usage] package <PORT>")

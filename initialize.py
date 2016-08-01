@@ -83,6 +83,9 @@ def update_main(project, is_flask_service):
 
         new += original[current_index:]
 
+        new = new.replace(start_ms, "").replace(end_ms, "")
+        new = new.replace(start_creation, "").replace(end_creation, "")
+
         original = new
 
     open("%s/__main__.py" % project, "w").write(original)

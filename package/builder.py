@@ -44,6 +44,6 @@ def make_app(project):
     @app.route("/sitemap")
     def get_sitemap():
         """Returns the sitemap of the application."""
-        return (service.get_sitemap(app)
+        return (service.get_sitemap(app))
 
     return app

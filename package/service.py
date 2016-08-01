@@ -44,7 +44,7 @@ def get_version():
     data = {
         "branch": getoutput("git rev-parse --abbrev-ref HEAD")[1],
         "hash":   getoutput("git rev-parse --short HEAD")[1],
-        "date"   = datetime.datetime.fromtimestamp(
+        "date":   datetime.datetime.fromtimestamp(
             int(
                 getoutput("git show -s --format=%ct HEAD")[1]
             )).strftime("%Y%m%d.%H%M%S")
