@@ -13,4 +13,4 @@ script:
 
 
 install:
-  - pip install pylint coverage jinja2
+  - pip install pylint coverage jinja2 flask
