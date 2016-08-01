@@ -25,9 +25,18 @@
 import unittest
 
 from package import service
+from package import builder
 
 class ServiceTest(unittest.TestCase):
     """Executes tests for the Service."""
+
+    def setUp(self):
+        """Sets up the tests."""
+        self.app    = builder.make_app("test_app")
+        self.app.config["TESTING"] = True
+        self.app.config["DEBUG"]   = True
+
+        self.client = self.app.test_client()
 
     def test_version(self):
         """Test the version retrieval."""
@@ -56,5 +65,15 @@ class ServiceTest(unittest.TestCase):
 
         sitemap = service.get_sitemap(app)
         self.assertTrue(len(sitemap) == 0)
+
+    def test_version_route(self):
+        """Test the /version route."""
+        response = self.client.get("/version")
+        self.assertTrue(len(response.data.decode("UTF-8")) > 0)
+
+    def test_get_sitemap_route(self):
+        """Test the /sitemap route."""
+        response = self.client.get("/sitemap")
+        self.assertTrue(len(response.data.decode("UTF-8")) > 0)
 
 

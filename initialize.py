@@ -52,6 +52,11 @@ def update_service_test(project):
     open("tests/service_test.py", "w").write(
         original.replace("from package import", "from %s import" % project))
 
+def update_builder_test(project):
+    original = open("tests/builder_test.py", "r").read()
+    open("tests/builder_test.py", "w").write(
+        original.replace("from package import", "from %s import" % project))
+
 def update_noseconfig(project):
     """Update the test configuration to match with the projects package name."""
     original = open("nose.cfg", "r").read()
@@ -100,7 +105,10 @@ def update_main(project, is_flask_service):
 
 def delete_flask_service_files(project):
     os.remove("%s/service.py" % project)
+    os.remove("tests/service_test.py")
+
     os.remove("%s/builder.py" % project)
+    os.remove("tests/builder_test.py")
 
 def get_user_config():
     """Reads the project configuration from the user.
@@ -126,6 +134,8 @@ def main():
     update_linter_test(project)
     update_noseconfig(project)
     update_pylintrc(project)
+    update_builder_test(project)
+    update_service_test(project)
     update_main(project, is_flask_service)
 
     if not is_flask_service:
