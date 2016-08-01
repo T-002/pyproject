@@ -38,9 +38,9 @@ def get_version():
     if sys.version_info >= (3, 0):
         import subprocess
         getoutput = subprocess.getstatusoutput
-    else:
-        import commands
-        getoutput = commands.getstatusoutput
+    else:                                       # pragma: no cover
+        import commands                         # pragma: no cover
+        getoutput = commands.getstatusoutput    # pragma: no cover
 
     data = {
         "branch": getoutput("git rev-parse --abbrev-ref HEAD")[1],

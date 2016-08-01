@@ -47,6 +47,11 @@ def update_linter_test(project):
     open("tests/pylint_test.py", "w").write(
         original.replace('PROJECT_NAME="package"', 'PROJECT_NAME="%s"' % project))
 
+def update_service_test(project):
+    original = open("tests/service_test.py", "r").read()
+    open("tests/service_test.py", "w").write(
+        original.replace("from package import", "from %s import" % project))
+
 def update_noseconfig(project):
     """Update the test configuration to match with the projects package name."""
     original = open("nose.cfg", "r").read()
