@@ -53,11 +53,11 @@ def get_version():
 
     return """v0.%(date)s (%(hash)s-%(branch)s)""" % data
 
-def get_sitemap(app, excludes=["/", "/static/<path:filename>"]):
+def get_sitemap(app, excludes=("/", "/static/<path:filename>")):
     """Returns a sitemap for the given application.
 
     :param flask.Flask app: Application to be scanned.
-    :param list excludes:   List of endpoints to be hidden.
+    :param tuple excludes:  Tuple of endpoints to be hidden.
 
     :return: Returns a list containing valid endpoint urls and their methods.
              Example:

@@ -30,10 +30,12 @@ You should give some information about your project here.
 from builder import make_app
 
 def start_development_server(host, port, debug):
+    """Starts the server in development mode."""
     app = make_app("package")
     app.run(host=host, port=port, debug=debug, threaded=True)
 
-def start_production_server(host, port):
+def start_production_server(port):
+    """Starts the server in production mode using Tornado."""
     from tornado.wsgi import WSGIContainer
     from tornado.httpserver import HTTPServer
     from tornado.ioloop import IOLoop
@@ -56,18 +58,16 @@ if __name__=="__main__":
         print("[Usage] package <PORT>")
         sys.exit()
 
-    host  = "0.0.0.0"
-    port  = int(sys.argv[1])
+    HOST  = "0.0.0.0"
+    PORT  = int(sys.argv[1])
 
-    debug = not os.path.dirname(os.path.abspath(__file__)).split(os.sep)[-2].endswith("production")
-
-    if debug:
+    if not os.path.dirname(os.path.abspath(__file__)).split(os.sep)[-2].endswith("production"):
         # Flask's integrated server
         print ("Starting in DEVELOPMENT mode.")
-        start_development_server(host, port, True)
+        start_development_server(HOST, PORT, True)
     else:
         # Tornado Server
         print("Starting in PRODUCTION mode.")
-        start_production_server(host, port)
+        start_production_server(PORT)
 
 #### END MICROSERVICE INSTANCE CREATION

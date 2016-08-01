@@ -60,7 +60,7 @@ class ServiceTest(unittest.TestCase):
         def index():
             return ""       # pragma: no cover
 
-        sitemap = service.get_sitemap(app, [])
+        sitemap = service.get_sitemap(app, ())
         self.assertTrue(len(sitemap) == 2)
 
         sitemap = service.get_sitemap(app)
