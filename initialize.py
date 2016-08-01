@@ -48,11 +48,13 @@ def update_linter_test(project):
         original.replace('PROJECT_NAME="package"', 'PROJECT_NAME="%s"' % project))
 
 def update_service_test(project):
+    """Update the tests for the service submodule."""
     original = open("tests/service_test.py", "r").read()
     open("tests/service_test.py", "w").write(
         original.replace("from package import", "from %s import" % project))
 
 def update_builder_test(project):
+    """Update the tests for the builder submodule."""
     original = open("tests/builder_test.py", "r").read()
     open("tests/builder_test.py", "w").write(
         original.replace("from package import", "from %s import" % project))
@@ -104,6 +106,7 @@ def update_main(project, is_flask_service):
     open("%s/__main__.py" % project, "w").write(original)
 
 def delete_flask_service_files(project):
+    """Delete flask related files."""
     os.remove("%s/service.py" % project)
     os.remove("tests/service_test.py")
 
