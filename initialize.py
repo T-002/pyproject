@@ -119,10 +119,11 @@ def get_user_config():
     :return: Returns a tuple, containing (project_name, is_flask_service)
     :rtype:  tuple
     """
-    project = str(input("Please give your project name: "))
+    project = str(input("""Please give your project name: """))
 
     flask_service = str(input(
-        "Should this project contain a Flask service? (y/n) ")).lower().strip()
+        """Should "%s" contain a Flask service? (y/n) """ % project)
+    ).lower().strip()
 
     if flask_service:
         flask_service = flask_service[0] == "y"
