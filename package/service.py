@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 #  -*- coding: UTF-8 -*-
 
-# Copyright (c) 2016 Christian Schwarz
+# Copyright (c) 2016-2017 Christian Schwarz
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -32,8 +32,8 @@ import sys
 def get_version():
     """Returns a readable version of the application.
 
-    :return: Returns the version of the application.
-    :rtype:  str
+    Returns:
+        str: Returns the version of the application.
     """
     if sys.version_info >= (3, 0):
         import subprocess
@@ -56,18 +56,17 @@ def get_version():
 def get_sitemap(app, excludes=("/", "/static/<path:filename>")):
     """Returns a sitemap for the given application.
 
-    :param flask.Flask app: Application to be scanned.
-    :param tuple excludes:  Tuple of endpoints to be hidden.
+    Args:
+        app (flask.Flask): Application to be scanned.
+        excludes (tuple):  Tuple of endpoints to be hidden.
 
-    :return: Returns a list containing valid endpoint urls and their methods.
-             Example:
+    Returns:
+        list: Returns a list containing valid endpoint urls and their methods. Example:
 
-                [
-                    {"url": "/",         "methods": ["GET"]},
-                    {"url": "/username", "methods": ["GET", "POST"]}
-                ]
-
-    :rtype:  list
+            [
+                {"url": "/",         "methods": ["GET"]},
+                {"url": "/username", "methods": ["GET", "POST"]}
+            ]
     """
     endpoints = []
     for rule in app.url_map.iter_rules():

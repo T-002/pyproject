@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 #  -*- coding: UTF-8 -*-
 
-# Copyright (c) 2016 Christian Schwarz
+# Copyright (c) 2016-2017 Christian Schwarz
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -48,9 +48,10 @@ class ReportGenerator(object):
     def __init__(self, module_name, pylint_report, output_directory="results/pylint"):
         """Initiates the ReportGenerator.
 
-        :param str  module_name:      Name of the linted module/package.
-        :param str  pylint_report:    Linter output.
-        :param str  output_directory: Directory to place the reports in.
+        Args:
+            module_name (str):      Name of the linted module/package.
+            pylint_report (str):    Linter output.
+            output_directory (str): Directory to place the reports in.
         """
         super(ReportGenerator, self).__init__()
 
@@ -65,11 +66,12 @@ class ReportGenerator(object):
     def get_jinja2_template(cls, template_dir="html_templates", template="main.html"):
         """Creates and returns a jinja2.Template.
 
-        :param str template_dir: Directory containing the HTML templates.
-        :param str template:     Name of the template.
+        Args:
+            template_dir (str): Directory containing the HTML templates.
+            template (str):     Name of the template.
 
-        :return: Returns the jinja2 environment.
-        :rtype:  jinja2.Template
+        Returns:
+            jinja2.Template: Returns the jinja2 environment.
         """
         template_dir = "%s/%s" % (os.path.dirname(os.path.abspath(__file__)), template_dir)
         jinja_env = jinja2.Environment(
@@ -106,7 +108,8 @@ class ReportGenerator(object):
     def generate_report_for_submodule(self, module_output):
         """Generates a report for a specific (submodule).
 
-        :param str module_output: pylint output of a specific submodule.
+        Args:
+            module_output (str): pylint output of a specific submodule.
         """
         result = []
 
@@ -134,8 +137,8 @@ class ReportGenerator(object):
     def parse_report(self):
         """Parses the report into usable format for the ReportGenerator.
 
-        :return: Returns the parsed report.
-        :rtype:  list(list)
+        Returns:
+            list: Returns the parsed report.
         """
         result = {}
 
@@ -148,7 +151,8 @@ class ReportGenerator(object):
     def persist_report(self, output_directory):
         """Writes the report to the output_directory.
 
-        :param str output_directory: Directory used to generate the report in.
+        Args:
+            output_directory (str): Directory used to generate the report in.
         """
         template = ReportGenerator.get_jinja2_template(template="module.html")
         outfile = open("%s/%s.html" % (output_directory, self.module_name), "w")
@@ -161,7 +165,8 @@ class ReportGenerator(object):
     def persist_main_report(cls, output_directory):
         """Generated the overview report.
 
-        :param str output_directory: Directory used to generate the report in.
+        Args:
+            output_directory (str): Directory used to generate the report in.
         """
         template = ReportGenerator.get_jinja2_template(template="index.html")
         outfile = open("%s/index.html" % output_directory, "w")
@@ -182,10 +187,11 @@ class PyLintTest(unittest.TestCase):
     def get_pylint_output_and_status(self, relative_path):
         """Runs pylint on the given path.
 
-        :param str relative_path: Path to the module/package to be checked.
+        Args:
+            relative_path (str): Path to the module/package to be checked.
 
-        :return: Returns the output of pylint.
-        :rtype:  str
+        Returns:
+            str: Returns the output of pylint.
         """
         command = "pylint --jobs=%s %s" % (multiprocessing.cpu_count(), relative_path)
         proc = subprocess.Popen(command.split(" "),
@@ -200,9 +206,11 @@ class PyLintTest(unittest.TestCase):
     def run_pylint_and_generate_report(self, module_name):
         """Checks the given module with pylint and generated the report.
 
-        :param str module_name: Name of the module to be checked.
+        Args:
+            module_name (str): Name of the module to be checked.
 
-        :return: Returns the return code of pylint.
+        Returns:
+            int: Returns the return code of pylint.
         """
         report = self.get_pylint_output_and_status(module_name)
 
