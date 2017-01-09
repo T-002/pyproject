@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 #  -*- coding: UTF-8 -*-
 
-# Copyright (c) 2016 Christian Schwarz
+# Copyright (c) 2016-2017 Christian Schwarz
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -38,10 +38,12 @@ class Dummy(object):
     def add_some_values(self, val_a, val_b):
         """Adds the values a and b.
 
-        :param val_a: First value.
-        :param val_b: Second value.
+        Args:
+            val_a (object): First value.
+            val_b (object): Second value.
 
-        :return: Returns the addition of a and b.
+        Returns:
+            object: Returns the addition of a and b.
         """
         self.call_count += 1
 
@@ -50,12 +52,13 @@ class Dummy(object):
 
     def concatenate_some_values(self, val_a,  val_b):
         """Concatenated the values and returns the result.
+    
+        Args:
+            val_a (object): First value.
+            val_b (object): Second value.
 
-        :param val_a: First value.
-        :param val_b: Second value.
-
-        :return: Returns the concatenation of val_a and val_b.
-        :rtype:  str
+        Returns:
+            str: Returns the concatenation of val_a and val_b.
         """
         self.call_count += 1
 

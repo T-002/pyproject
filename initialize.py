@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 #  -*- coding: UTF-8 -*-
 
-# Copyright (c) 2016 Christian Schwarz
+# Copyright (c) 2016-2017 Christian Schwarz
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -116,13 +116,14 @@ def delete_flask_service_files(project):
 def get_user_config():
     """Reads the project configuration from the user.
 
-    :return: Returns a tuple, containing (project_name, is_flask_service)
-    :rtype:  tuple
+    Returns:
+        tuple: Returns a tuple, containing (project_name, is_flask_service)
     """
-    project = str(input("Please give your project name: "))
+    project = str(input("""Please give your project name: """))
 
     flask_service = str(input(
-        "Should this project contain a Flask service? (y/n) ")).lower().strip()
+        """Should "%s" contain a Flask service? (y/n) """ % project)
+    ).lower().strip()
 
     if flask_service:
         flask_service = flask_service[0] == "y"

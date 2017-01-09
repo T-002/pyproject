@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 #  -*- coding: UTF-8 -*-
 
-# Copyright (c) 2016 Christian Schwarz
+# Copyright (c) 2016-2017 Christian Schwarz
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -32,20 +32,20 @@ import service
 def make_app(project):
     """Creates a Flask application and returns it.
 
-    :return: Returns a Flask application.
-    :rtype:  flask.Flask
+    Returns:
+        flask.Flask: Returns a Flask application.
     """
     app = Flask(
         import_name     = project,
         static_folder   = "%s/static"    % os.path.dirname(os.path.realpath(__file__)),
         template_folder = "%s/templates" % os.path.dirname(os.path.realpath(__file__)))
 
-    @app.route("/version")
+    @app.route("/get/version")
     def get_version():
         """Returns the version of the application."""
         return service.get_version()
 
-    @app.route("/sitemap")
+    @app.route("/get/sitemap")
     def get_sitemap():
         """Returns the sitemap of the application."""
         return str(service.get_sitemap(app))

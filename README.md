@@ -13,6 +13,8 @@ You can use this template if you like to have an already project with basic test
   * nosetests
   * coverage
   * jinja2
+  * sphinxcontrib.napoleon for nicer doc strings
+
 
 ### External services already configured
   * ![Landscape](https://landscape.io/github/T-002/pyproject/master/landscape.svg?style=flat) - landscape.io - static code checker. Alternative to the integrated pylint_test.py
